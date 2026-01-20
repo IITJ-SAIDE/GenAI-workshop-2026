@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- IMPORTANT -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- IMPORTANT -->
 
     <title>SAIDE Organizes Hands-On Workshop on Recent Trends in Generative AI Models and Their Applications</title>
 
@@ -12,45 +13,143 @@
 
     <!-- Mobile menu visibility fixes -->
     <style>
-        /* Make nav links visible by default on dark hero */
-        #header .nav-link { color: #ffffff !important; }
 
-        /* Make hamburger icon visible */
-        .navbar-toggler { border: 1px solid rgba(255,255,255,0.55) !important; }
-        .navbar-toggler-icon { filter: invert(1); }  /* for dark background */
+        #header {
+    background: transparent !important;
+    box-shadow: none;
+    transition: all 0.3s ease-in-out;
+}
 
-        /* Mobile dropdown (collapsed menu) background */
-        @media (max-width: 991px) {
-            #navigation {
-                background: rgba(0,0,0,0.75);
-                padding: 10px 14px;
-                border-radius: 10px;
-                margin-top: 10px;
+    #header .nav-link {
+        color: #ffffff !important; /* white text when transparent */
+    }
+
+    /* After Scroll */
+    #header.scrolled {
+        background: rgba(255,255,255,0.85) !important;
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid #ddd;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+        #header.scrolled .nav-link {
+            color: #000000 !important; /* switch to black text */
+        }
+        #header.scrolled #nav-header-title{
+            color:#000 !important;
+        }
+
+        #header.scrolled .site-logo span {
+            color: #000000 !important;
+        }
+        #nav-header-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* ===== Hover underline animation (Left ➝ Right) ===== */
+        #navigation .nav-link {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 6px;
+            text-decoration: none;
+        }
+
+        /* hidden underline */
+        #navigation .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 0%;
+            background: #8B0000;
+            transform-origin: left;
+            transition: width 0.35s ease;
+        }
+
+        /* show underline on hover */
+        #navigation .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-toggler {
+            border: 2px solid rgba(0, 0, 0, 0.5) !important;
+        }
+
+
+        .navbar-toggler-icon {
+            background-image: var(--bs-navbar-toggler-icon-bg) !important;
+        }
+
+        .hero-heading {
+            color: #fff;
+            font-weight: 600;
+            line-height: 1.3;
+            font-size: clamp(18px, 2.2vw, 32px);
+            /* responsive automatic */
+        }
+
+        .hero-date {
+            display: inline-block;
+            font-weight: 600;
+            font-size: clamp(16px, 2vw, 30px);
+            /* responsive automatic */
+        }
+
+        .nav-title {
+            color: #fff;
+            font-weight: 700;
+            line-height: 1.2;
+            font-size: clamp(14px, 1.6vw, 20px);
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        /* underline animation */
+        .nav-title {
+            color: #ffffff;
+            text-decoration: none !important;
+            transition: color 0.25s ease;
+        }
+
+        .nav-title:hover {
+            color: rgba(255, 255, 255, 0.7) !important;
+            text-decoration: none !important;
+        }
+
+
+        /* Optional: better spacing on very small screens */
+        @media (max-width: 576px) {
+            .hero-section {
+                padding-top: 95px !important;
             }
-            #navigation .nav-link {
-                padding: 10px 6px !important;
-                display: block;
+
+            .nav-title {
+                max-width: 240px;
             }
         }
 
-        /* When scrolled, you likely want white header + dark text */
-        #header.scrolled {
-            background: rgba(255,255,255,0.95) !important;
-            border-bottom: 1px solid #e6e6e6 !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08) !important;
+        .nav-title {
+            color: #fff;
+            font-weight: 700;
+            line-height: 1.2;
+            font-size: clamp(14px, 1.6vw, 22px);
+            /* mobile small -> laptop big */
+            white-space: normal;
+            /* allow wrapping */
         }
-        #header.scrolled .nav-link { color: #000000 !important; }
-        #header.scrolled .site-title { color: #000000 !important; }
-        #header.scrolled .navbar-toggler { border: 1px solid rgba(0,0,0,0.35) !important; }
-        #header.scrolled .navbar-toggler-icon { filter: invert(0); }
     </style>
 </head>
 
 <body>
 
     <!-- ===== Header ===== -->
-    <header id="header" class="header fixed-top"
-            style="background:transparent; border-bottom:none; box-shadow:none; transition:0.3s;">
+    <header id="header" class="header fixed-top">
+
         <div class="branding">
             <div class="container-fluid">
 
@@ -58,21 +157,23 @@
 
                     <!-- ===== Title ===== -->
                     <div class="site-logo d-flex align-items-center gap-3">
-                        <span class="site-title" style="font-size:20px; font-weight:700; color:#fff;">
+                        <a href="#hero" class="site-title nav-title scrollto" id="nav-header-title">
                             IIT Jodhpur GenAI Hands-On Workshop 2026
-                        </span>
+                        </a>
                     </div>
 
-                    <!-- Mobile menu button -->
-                    <button class="navbar-toggler" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#navigation"
-                            aria-controls="navigation" aria-expanded="false"
-                            aria-label="Toggle navigation">
+
+
+
+                    <!-- ✅ Mobile menu button (OFFCANVAS) -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
+                        aria-controls="mobileMenu">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <!-- Navigation links -->
-                    <div id="navigation" class="navbar-collapse collapse justify-content-lg-end me-lg-3">
+                    <!-- ✅ Desktop Navigation links (SAME as before) -->
+                    <div id="navigation"
+                        class="navbar-collapse collapse justify-content-lg-end me-lg-3 d-none d-lg-flex">
                         <ul class="nav navbar-nav" style="font-weight:600; font-size:17px;">
 
                             <li class="nav-item">
@@ -100,43 +201,85 @@
         </div>
     </header>
 
-    
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+            <ul class="navbar-nav" style="font-weight:600; font-size:17px;">
+
+                <li class="nav-item">
+                    <a class="nav-link scrollto" href="#overview-section">Program Overview</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link scrollto" href="#Registration-section">Registration</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link scrollto" href="#schedule-section">Program Schedule</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link scrollto" href="#team-section">Organizing Team</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link scrollto" href="#Contact-section">Contact</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
 
 
 
 
 
-   
+
+
+
+
+
+
 
     <!-- ================= HERO SECTION ================= -->
     <section id="hero" class="hero-section d-flex align-items-center"
-             style="position:relative; height:68vh; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+        style="position:relative; min-height:68vh; display:flex; align-items:center; justify-content:center; overflow:hidden; padding-top:80px;">
 
         <!-- Background Image -->
         <img src="images/bg.png" alt="Banner Background"
-             style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:-1;filter:brightness(0.45);">
+            style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:-1; filter:brightness(0.45);">
 
-        <div class="container text-center d-flex flex-wrap justify-content-center align-items-center" style="gap:10px;">
+        <div class="container">
 
-            <!-- Logo (left) -->
-            <div>
-                <img src="images/WHITE.png" alt="IITJ Logo"
-                     style="height:225px; filter:drop-shadow(0 0 4px rgba(0,0,0,0.7));">
-            </div>
+            <div class="row align-items-center text-center text-md-start">
 
-            <!-- Title Text (right) -->
-            
-            <div style="max-width:1050px; margin:auto; text-align:center; color:#ffffff;">
-                <h1 class="hero-heading mb-2" style="font-size: 30px; color: #ffffff; font-weight: 600; line-height: 1.2;">
+                <!-- Logo -->
+                <div class="col-12 col-md-3 d-flex justify-content-center justify-content-center mb-3 mb-md-0">
+                    <img src="images/WHITE.png" alt="IITJ Logo"
+                        style="max-width:170px; width:100%; height:auto; filter:drop-shadow(0 0 4px rgba(0,0,0,0.7));">
+                </div>
 
-                    <br><br>School of Artificial Intelligence and Data Science (SAIDE)<br>
-                    Organizes<br>
-                    Hands-On Workshop on Recent Trends in Generative AI Models and Their Applications<br><br>
-                    <span style="font-size:30px; font-weight:600;">
-                        
-                        02–04 February 2026, IIT Jodhpur, India
-                    </span>
-                </h1>
+                <!-- Title -->
+                <div class="col-12 col-md-9 text-center text-md-start" style="color:#fff;">
+                    <h1 class="hero-heading mb-2">
+                        School of Artificial Intelligence and Data Science (SAIDE)<br>
+                        Organizes<br>
+                        Hands-On Workshop on Recent Trends in Generative AI Models and Their Applications<br><br>
+
+                        <span class="hero-date">
+                            02–04 February 2026, IIT Jodhpur, India
+                        </span>
+                    </h1>
+
+                </div>
+
             </div>
 
 
@@ -145,23 +288,32 @@
     </section>
 
 
+
     <section id="overview-section" class="tickets-section section theme-bg-light">
         <div class="container">
             <h3 class="section-heading text-center mb-3">Program Overview</h3>
             <div class="section-intro single-col-max mx-auto mb-4" style="text-align:justify;">
                 <p style="text-align:justify; font-size:19px; line-height:1.5;">
-                    This 3-day workshop is designed to build participant capability in Generative AI through a structured,
-                    bottom-up learning pathway. The program opens with first principles - deep learning fundamentals and the
-                    evolution of the modern Generative AI landscape - before progressing to architectural intuition and practical
-                    understanding of key model families. These include adversarial approaches for visual synthesis, text-to-image
-                    generation approaches and latent workflows, and foundation models that enable text-driven and image-level
+                    This 3-day workshop is designed to build participant capability in Generative AI through a
+                    structured,
+                    bottom-up learning pathway. The program opens with first principles - deep learning fundamentals and
+                    the
+                    evolution of the modern Generative AI landscape - before progressing to architectural intuition and
+                    practical
+                    understanding of key model families. These include adversarial approaches for visual synthesis,
+                    text-to-image
+                    generation approaches and latent workflows, and foundation models that enable text-driven and
+                    image-level
                     intelligence across tasks.
                 </p>
                 <p style="text-align:justify; font-size:19px; line-height:1.5;">
                     Each module blends conceptual grounding with guided demonstrations and hands-on coding, ensuring
-                    participants develop both intuition and implementation skills. The schedule further integrates keynote talks,
-                    faculty interaction, and research-oriented sessions, fostering inquiry, discussion, and critical thinking. By the
-                    end of the workshop, participants will be equipped to reason about generative model behaviour, explore
+                    participants develop both intuition and implementation skills. The schedule further integrates
+                    keynote talks,
+                    faculty interaction, and research-oriented sessions, fostering inquiry, discussion, and critical
+                    thinking. By the
+                    end of the workshop, participants will be equipped to reason about generative model behaviour,
+                    explore
                     application directions, and begin adapting these models to problems in their domains.
                 </p>
 
@@ -194,16 +346,20 @@
                     Deep Learning → Generative AI → Vision Models → Text Models → Foundation Models.
                 </li>
 
-                <li>Balanced format with conceptual sessions, guided demos, and hands-on coding across all three days.</li>
+                <li>Balanced format with conceptual sessions, guided demos, and hands-on coding across all three days.
+                </li>
 
-                <li>Keynote talks and research sessions by IIT Jodhpur faculty to inspire research thinking and career pathways.</li>
+                <li>Keynote talks and research sessions by IIT Jodhpur faculty to inspire research thinking and career
+                    pathways.</li>
 
                 <li>
-                    Interactive discussion spaces designed to help participants map workshop learning to projects, internships, and thesis topics in Generative AI.
+                    Interactive discussion spaces designed to help participants map workshop learning to projects,
+                    internships, and thesis topics in Generative AI.
                 </li>
 
                 <!-- 🎓 CERTIFICATION HIGHLIGHT -->
-                <li style="background:#fff4f4; border-left:6px solid #b30000; padding:12px; margin-top:10px; font-size:19px;">
+                <li
+                    style="background:#fff4f4; border-left:6px solid #b30000; padding:12px; margin-top:10px; font-size:19px;">
                     <strong>Certification:</strong> On successful completion, a certificate will be awarded by the
                     <strong>
                         School of Artificial Intelligence & Data Science, IIT Jodhpur.
@@ -224,13 +380,20 @@
 
             <h4 class="text-center mt-4" style="font-size:22px;"><strong>Benefits to Participants</strong></h4>
             <ul style="text-align:left; max-width:850px; margin:auto; line-height:1.5; font-size:19px;">
-                <li>Gain practical experience in implementing Generative AI models through guided coding labs and hands-on demonstrations.</li>
-                <li>Build a solid conceptual foundation in modern Generative AI model families and application workflows.</li>
-                <li>Strengthen employability for roles in AI/ML engineering, applied research, data science, and model development teams.</li>
-                <li>Develop confidence to experiment with text, image, and multimodal generation tasks using contemporary tools.</li>
-                <li>Learn how to design structured experiments, evaluate generative models, and interpret outputs effectively.</li>
-                <li>Interact with experts, engage with peers, and expand professional and academic networks within the IIT Jodhpur ecosystem.</li>
-                <li>Establish a foundation for further research in efficient generative models, diffusion models, and adaptation in data-limited environments.</li>
+                <li>Gain practical experience in implementing Generative AI models through guided coding labs and
+                    hands-on demonstrations.</li>
+                <li>Build a solid conceptual foundation in modern Generative AI model families and application
+                    workflows.</li>
+                <li>Strengthen employability for roles in AI/ML engineering, applied research, data science, and model
+                    development teams.</li>
+                <li>Develop confidence to experiment with text, image, and multimodal generation tasks using
+                    contemporary tools.</li>
+                <li>Learn how to design structured experiments, evaluate generative models, and interpret outputs
+                    effectively.</li>
+                <li>Interact with experts, engage with peers, and expand professional and academic networks within the
+                    IIT Jodhpur ecosystem.</li>
+                <li>Establish a foundation for further research in efficient generative models, diffusion models, and
+                    adaptation in data-limited environments.</li>
             </ul>
 
             <h4 class="text-center mt-4" style="font-size:22px;"><strong>Prerequisites</strong></h4>
@@ -253,14 +416,24 @@
                     <th>Category</th>
                     <th>Registration Fee<br><small>(excluding accommodation)</small></th>
                 </tr>
-                <tr><td><strong>Students (UG/PG/Ph.D.)</strong></td><td>₹ 2,000 + 18% GST = <strong>₹ 2,360/-</strong></td></tr>
-                <tr><td><strong>Faculty / Technical Staff</strong></td><td>₹ 3,000 + 18% GST = <strong>₹ 3,540/-</strong></td></tr>
-                <tr><td><strong>Industry / Corporate Participants</strong></td><td>₹ 5,000 + 18% GST = <strong>₹ 5,900/-</strong></td></tr>
+                <tr>
+                    <td><strong>Students (UG/PG/Ph.D.)</strong></td>
+                    <td>₹ 2,000 + 18% GST = <strong>₹ 2,360/-</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Faculty / Technical Staff</strong></td>
+                    <td>₹ 3,000 + 18% GST = <strong>₹ 3,540/-</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Industry / Corporate Participants</strong></td>
+                    <td>₹ 5,000 + 18% GST = <strong>₹ 5,900/-</strong></td>
+                </tr>
             </table>
 
             <h4 class="text-center mt-5" style="color:green; font-weight:bold;">
                 Registration is open till <span style="background:yellow;">28th January 2026. </span>
-                <a href="registration.html" style="color:#800000; font-weight:600; text-decoration:underline;"> Registration link will open soon
+                <a href="registration.html" style="color:#800000; font-weight:600; text-decoration:underline;">
+                    Registration link will open soon
                 </a>
             </h4>
 
@@ -270,7 +443,8 @@
                 <li>Refunds for cancellations will be issued after deducting GST and ₹500 processing fee.</li>
                 <li>Cancellations are accepted until <strong>25th Jan 2026</strong>. No refunds thereafter.</li>
                 <li>If the workshop cannot proceed as scheduled, it will be rescheduled to the next suitable date.</li>
-                <li>On-campus accommodation charges are separate and subject to availability. Check the following link.</li>
+                <li>On-campus accommodation charges are separate and subject to availability. Check the following link.
+                </li>
             </ul>
         </div>
     </section>
@@ -283,7 +457,8 @@
                 <strong>Tentative Program Schedule</strong>
             </h2>
 
-            <p style="text-align:center; font-family:Arial, sans-serif; font-size:15px; background:#fff8e6; border:1px solid #ffd580; padding:8px 12px; width:fit-content; margin:0 auto 25px; border-radius:6px;">
+            <p
+                style="text-align:center; font-family:Arial, sans-serif; font-size:15px; background:#fff8e6; border:1px solid #ffd580; padding:8px 12px; width:fit-content; margin:0 auto 25px; border-radius:6px;">
                 <strong>In Physical Mode @ Jodhpur Club Auditorium, IIT Jodhpur</strong>
             </p>
 
@@ -302,16 +477,17 @@
                     font-size: 14px;
                 }
 
-                    .schedule-table th, .schedule-table td {
-                        border: 1px solid #cccccc;
-                        padding: 8px 10px;
-                    }
+                .schedule-table th,
+                .schedule-table td {
+                    border: 1px solid #cccccc;
+                    padding: 8px 10px;
+                }
 
-                    .schedule-table th {
-                        background: #eaeaea;
-                        font-weight: bold;
-                        text-align: center;
-                    }
+                .schedule-table th {
+                    background: #eaeaea;
+                    font-weight: bold;
+                    text-align: center;
+                }
 
                 .day-header {
                     background: #f7f2f2;
@@ -350,7 +526,9 @@
             <!-- ========================= DAY 1 ========================= -->
             <div class="table-wrapper">
                 <table class="schedule-table">
-                    <tr><th colspan="4" class="day-header">02/02/2026 (Monday) – Day 1</th></tr>
+                    <tr>
+                        <th colspan="4" class="day-header">02/02/2026 (Monday) – Day 1</th>
+                    </tr>
                     <tr>
                         <th style="width:15%;">Session</th>
                         <th style="width:20%;">Time</th>
@@ -358,15 +536,60 @@
                         <th style="width:20%;">Type</th>
                     </tr>
 
-                    <tr><td>Session-1</td><td>09:45 – 10:15 AM</td><td>Introduction of School & Opportunities (HoD Address)</td><td>Intro Talk</td></tr>
-                    <tr class="breakrow"><td>Tea-break</td><td>10:15 – 10:30 AM</td><td></td><td></td></tr>
-                    <tr><td>Session-2</td><td>10:30 AM – 12:00 PM</td><td><em>Deep Learning Foundations: Core Concepts & Architecture Intuition</em></td><td class="hands-on">Hands-on</td></tr>
-                    <tr class="breakrow"><td>Lunch</td><td>12:00 – 02:00 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-3</td><td>02:00 – 03:30 PM</td><td><em>Generative AI Foundations: From Latent Spaces to Model Paradigms</em></td><td class="hands-on">Hands-on</td></tr>
-                    <tr class="breakrow"><td>Tea-break</td><td>03:30 – 03:45 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-4</td><td>03:45 – 04:45 PM</td><td><em>Keynote Talk I</em></td><td class="Keynote">Keynote Talk</td></tr>
-                    <tr class="breakrow"><td>Break</td><td>04:45 – 05:00 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-5</td><td>05:00 – 05:45 PM</td><td><em>Keynote Talk II</em></td><td class="research">Keynote Talk</td></tr>
+                    <tr>
+                        <td>Session-1</td>
+                        <td>09:45 – 10:15 AM</td>
+                        <td>Introduction of School & Opportunities (HoD Address)</td>
+                        <td>Intro Talk</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Tea-break</td>
+                        <td>10:15 – 10:30 AM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-2</td>
+                        <td>10:30 AM – 12:00 PM</td>
+                        <td><em>Deep Learning Foundations: Core Concepts & Architecture Intuition</em></td>
+                        <td class="hands-on">Hands-on</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Lunch</td>
+                        <td>12:00 – 02:00 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-3</td>
+                        <td>02:00 – 03:30 PM</td>
+                        <td><em>Generative AI Foundations: From Latent Spaces to Model Paradigms</em></td>
+                        <td class="hands-on">Hands-on</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Tea-break</td>
+                        <td>03:30 – 03:45 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-4</td>
+                        <td>03:45 – 04:45 PM</td>
+                        <td><em>Keynote Talk I</em></td>
+                        <td class="Keynote">Keynote Talk</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Break</td>
+                        <td>04:45 – 05:00 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-5</td>
+                        <td>05:00 – 05:45 PM</td>
+                        <td><em>Keynote Talk II</em></td>
+                        <td class="research">Keynote Talk</td>
+                    </tr>
                 </table>
             </div>
 
@@ -374,7 +597,9 @@
             <!-- ========================= DAY 2 ========================= -->
             <div class="table-wrapper">
                 <table class="schedule-table">
-                    <tr><th colspan="4" class="day-header">03/02/2026 (Tuesday) – Day 2</th></tr>
+                    <tr>
+                        <th colspan="4" class="day-header">03/02/2026 (Tuesday) – Day 2</th>
+                    </tr>
                     <tr>
                         <th style="width:15%;">Session</th>
                         <th style="width:20%;">Time</th>
@@ -382,14 +607,54 @@
                         <th style="width:20%;">Type</th>
                     </tr>
 
-                    <tr class="breakrow"><td>Tea-break</td><td>09:45 – 10:00 AM</td><td></td><td></td></tr>
-                    <tr><td>Session-1</td><td>10:00 AM – 12:00 PM</td><td><em>Generative AI for Vision</em></td><td class="hands-on">Hands-on</td></tr>
-                    <tr class="breakrow"><td>Lunch</td><td>12:00 – 02:00 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-2</td><td>02:00 – 03:30 PM</td><td><em>Generative AI for Text</em></td><td class="hands-on">Hands-on</td></tr>
-                    <tr class="breakrow"><td>Tea-break</td><td>03:30 – 03:45 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-3</td><td>03:45 – 04:45 PM</td><td><em>Keynote Talk III</em></td><td class="Keynote">Keynote Talk</td></tr>
-                    <tr class="breakrow"><td>Break</td><td>04:45 – 05:00 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-4</td><td>05:00 – 05:45 PM</td><td><em>Keynote Talk IV</em></td><td class="research">Keynote Talk</td></tr>
+                    <tr class="breakrow">
+                        <td>Tea-break</td>
+                        <td>09:45 – 10:00 AM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-1</td>
+                        <td>10:00 AM – 12:00 PM</td>
+                        <td><em>Generative AI for Vision</em></td>
+                        <td class="hands-on">Hands-on</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Lunch</td>
+                        <td>12:00 – 02:00 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-2</td>
+                        <td>02:00 – 03:30 PM</td>
+                        <td><em>Generative AI for Text</em></td>
+                        <td class="hands-on">Hands-on</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Tea-break</td>
+                        <td>03:30 – 03:45 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-3</td>
+                        <td>03:45 – 04:45 PM</td>
+                        <td><em>Keynote Talk III</em></td>
+                        <td class="Keynote">Keynote Talk</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Break</td>
+                        <td>04:45 – 05:00 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-4</td>
+                        <td>05:00 – 05:45 PM</td>
+                        <td><em>Keynote Talk IV</em></td>
+                        <td class="research">Keynote Talk</td>
+                    </tr>
                 </table>
             </div>
 
@@ -397,7 +662,9 @@
             <!-- ========================= DAY 3 ========================= -->
             <div class="table-wrapper">
                 <table class="schedule-table">
-                    <tr><th colspan="4" class="day-header">04/02/2026 (Wednesday) – Day 3</th></tr>
+                    <tr>
+                        <th colspan="4" class="day-header">04/02/2026 (Wednesday) – Day 3</th>
+                    </tr>
                     <tr>
                         <th style="width:15%;">Session</th>
                         <th style="width:20%;">Time</th>
@@ -405,16 +672,66 @@
                         <th style="width:20%;">Type</th>
                     </tr>
 
-                    <tr class="breakrow"><td>Tea-break</td><td>09:45 – 10:00 AM</td><td></td><td></td></tr>
-                    <tr><td>Session-1</td><td>10:00 – 11:00 AM</td><td><em>Keynote Talk V</em></td><td class="Keynote">Keynote Talk</td></tr>
-                    <tr class="breakrow"><td>Break</td><td>11:00 – 11:10 AM</td><td></td><td></td></tr>
-                    <tr><td>Session-2</td><td>11:10 AM – 12:40 PM</td><td><em>Keynote Talk IV</em></td><td class="hands-on">Keynote Talk</td></tr>
-                    <tr class="breakrow"><td>Lunch</td><td>12:40 – 02:30 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-3</td><td>02:30 – 03:30 PM</td><td><em>Domain-Specific Foundation Models (Part I)</em></td><td class="hands-on">Hands-on</td></tr>
-                    <tr class="breakrow"><td>Tea-break</td><td>03:30 – 03:45 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-4</td><td>03:45 – 04:45 PM</td><td><em>Domain-Specific Foundation Models (Part II)</em></td><td class="hands-on">Hands-on</td></tr>
-                    <tr class="breakrow"><td>Break</td><td>04:45 – 05:00 PM</td><td></td><td></td></tr>
-                    <tr><td>Session-5</td><td>05:00 – 05:30 PM</td><td><em>Conclusion and Going Forward</em></td><td class="discussion">Discussion</td></tr>
+                    <tr class="breakrow">
+                        <td>Tea-break</td>
+                        <td>09:45 – 10:00 AM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-1</td>
+                        <td>10:00 – 11:00 AM</td>
+                        <td><em>Keynote Talk V</em></td>
+                        <td class="Keynote">Keynote Talk</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Break</td>
+                        <td>11:00 – 11:10 AM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-2</td>
+                        <td>11:10 AM – 12:40 PM</td>
+                        <td><em>Keynote Talk IV</em></td>
+                        <td class="hands-on">Keynote Talk</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Lunch</td>
+                        <td>12:40 – 02:30 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-3</td>
+                        <td>02:30 – 03:30 PM</td>
+                        <td><em>Domain-Specific Foundation Models (Part I)</em></td>
+                        <td class="hands-on">Hands-on</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Tea-break</td>
+                        <td>03:30 – 03:45 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-4</td>
+                        <td>03:45 – 04:45 PM</td>
+                        <td><em>Domain-Specific Foundation Models (Part II)</em></td>
+                        <td class="hands-on">Hands-on</td>
+                    </tr>
+                    <tr class="breakrow">
+                        <td>Break</td>
+                        <td>04:45 – 05:00 PM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Session-5</td>
+                        <td>05:00 – 05:30 PM</td>
+                        <td><em>Conclusion and Going Forward</em></td>
+                        <td class="discussion">Discussion</td>
+                    </tr>
                 </table>
             </div>
 
@@ -436,7 +753,8 @@
                 </h4>
                 <ul style="font-family:Arial, sans-serif; line-height:1.5; text-align:left; display:inline-block;">
                     <li>
-                        <a href="https://divvyasaxena.github.io/Divya-Saxena/" target="_blank" style="text-decoration:underline;">
+                        <a href="https://divvyasaxena.github.io/Divya-Saxena/" target="_blank"
+                            style="text-decoration:underline;">
                             Prof. Divya Saxena
                         </a>, School of Artificial Intelligence & Data Science (SAIDE), IIT Jodhpur
                     </li>
@@ -455,10 +773,18 @@
                     Instructors / Speakers
                 </h4>
                 <ul style="font-family:Arial, sans-serif; line-height:1.5; text-align:left; display:inline-block;">
-                    <li><a href="https://3dcomputervision.github.io/" target="_blank" style="text-decoration:underline;">Prof. Avinash Sharma</a>, Department of Computer Science and Engineering, IIT Jodhpur</li>
-                    <li><a href="https://home.iitj.ac.in/~bikash/" target="_blank" style="text-decoration:underline;">Prof. Bikash Santra</a>, School of Artificial Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
-                    <li><a href="https://scholar.google.com/citations?user=a6T1uIUAAAAJ&hl=en" target="_blank" style="text-decoration:underline;">Prof. Deeksha Varshney</a>, School of Artificial Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
-                    <li><a href="https://sites.google.com/view/navchetanawasthi" target="_blank" style="text-decoration:underline;">Prof. Navchetan Awasthi</a>, School of Artificial Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
+                    <li><a href="https://3dcomputervision.github.io/" target="_blank"
+                            style="text-decoration:underline;">Prof. Avinash Sharma</a>, Department of Computer Science
+                        and Engineering, IIT Jodhpur</li>
+                    <li><a href="https://home.iitj.ac.in/~bikash/" target="_blank"
+                            style="text-decoration:underline;">Prof. Bikash Santra</a>, School of Artificial
+                        Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
+                    <li><a href="https://scholar.google.com/citations?user=a6T1uIUAAAAJ&hl=en" target="_blank"
+                            style="text-decoration:underline;">Prof. Deeksha Varshney</a>, School of Artificial
+                        Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
+                    <li><a href="https://sites.google.com/view/navchetanawasthi" target="_blank"
+                            style="text-decoration:underline;">Prof. Navchetan Awasthi</a>, School of Artificial
+                        Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
 
 
                     <!-- Add more confirmed names here -->
@@ -472,7 +798,9 @@
                     Head of the School (SAIDE), IIT Jodhpur
                 </h4>
                 <ul style="font-family:Arial, sans-serif; line-height:1.7; text-align:left; display:inline-block;">
-                    <li><a href="https://www.iitj.ac.in/People/Profile/350ea9db-2521-402a-98e0-3a40a18f06a9" target="_blank" style="text-decoration:underline;">Prof. Anil Kumar Trivedi</a>, Head, School of Artificial Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
+                    <li><a href="https://www.iitj.ac.in/People/Profile/350ea9db-2521-402a-98e0-3a40a18f06a9"
+                            target="_blank" style="text-decoration:underline;">Prof. Anil Kumar Trivedi</a>, Head,
+                        School of Artificial Intelligence & Data Science (SAIDE), IIT Jodhpur</li>
                 </ul>
 
                 <h4 style="margin-top: 25px; font-family: Arial, sans-serif; color: #b30000;">
@@ -500,11 +828,54 @@
     <footer class="footer py-5 theme-bg-primary">
         <div class="container text-center">
             <br>
-            <center>Organized by <a href="https://iitj.ac.in/school-of-artificial-intelligence-data-science/en/school-of-artificial-intelligence-and-data-science" style="text-decoration:underline;">School of Artificial Intelligence & Data Science (SAIDE), IIT Jodhpur</a></center>
+            <center>Organized by <a
+                    href="https://iitj.ac.in/school-of-artificial-intelligence-data-science/en/school-of-artificial-intelligence-and-data-science"
+                    style="text-decoration:underline;">School of Artificial Intelligence & Data Science (SAIDE), IIT
+                    Jodhpur</a></center>
         </div>
     </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"d19bce8d46284bd4941a0d10bb03537e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"version":"2024.11.0","token":"d19bce8d46284bd4941a0d10bb03537e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+    <script>
+        window.addEventListener("scroll", function () {
+            const header = document.getElementById("header");
 
-    
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('#mobileMenu a.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const targetId = this.getAttribute("href");
+                if (!targetId || !targetId.startsWith("#")) return;
+
+                e.preventDefault();
+
+                // ✅ Close offcanvas
+                const offcanvasEl = document.getElementById("mobileMenu");
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                if (bsOffcanvas) bsOffcanvas.hide();
+
+                // ✅ Scroll after offcanvas closes
+                setTimeout(() => {
+                    document.querySelector(targetId)?.scrollIntoView({ behavior: "smooth" });
+                }, 300);
+            });
+        });
+    </script>
+
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </html>
