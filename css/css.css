@@ -5,6 +5,7 @@
     color: #fff !important;
     border-radius: 4px;
 }
+
 #header {
     background: transparent !important;
     box-shadow: none;
@@ -13,6 +14,14 @@
 
     #header .nav-link {
         color: #ffffff !important; /* white text when transparent */
+    }
+.photo{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background:#eef2ff;
     }
 
     /* After Scroll */
